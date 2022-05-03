@@ -6,6 +6,7 @@ HEIGHT = 500
 WIDTH = 500
 liste_X = []
 liste_Y = []
+couleur = ['green', 'blue', 'white', 'cyan', 'yellow', 'purple']
 
 
 def cree_fichier_alea(nb, nomfichier):
@@ -30,33 +31,22 @@ def lit_fichier(nomfic):
         liste.append(texte.split())
         if texte == '':
             break
-    for i in range(t):
+    for i in range(len(liste)-1):
         liste_X.append(liste[i][0])
         liste_Y.append(liste[i][1])
-    print(liste_X)
-    print(liste_Y)
+        liste_X[i] = float(liste_X[i])
+        liste_Y[i] = float(liste_Y[i])
 
 
 def trace_nuage(nomf):
     lit_fichier(nomf)
-    for m, n in liste_X, liste_Y:
-        cv.create_line((int(m), int(n)), (int(m) + 1, int(n) + 1), width=1)
-
+    for i in range(len(liste_X)):
+        cv.create_line((liste_X[i], liste_Y[i]), (liste_X[i] + 1, liste_Y[i] + 1), width=1)
     return len(liste_X)
 
 
 def trace_droite(a, b):
-    cv.create_line((0, b), (500, 500 * a + b))
-
-
-racine = tk.Tk()
-racine.title('graphique')
-cv = tk.Canvas(racine, height=HEIGHT, width=WIDTH)
-cv.pack()
-cree_fichier_alea(2, 'fichier')
-trace_nuage('fichier')
-trace_droite(2, 10)
-racine.mainloop()
+    cv.create_line((0, b), (500, 500 * a + b), fill='red')
 
 
 # Deuxieme Partie
@@ -72,7 +62,7 @@ def variance(serie):
     average = moyenne(serie)
     somme = 0
     for i in serie:
-        somme = (i - average) ^ 2 + somme
+        somme = ((i - average) ** 2) + somme
     variancee = somme / len(serie)
     return variancee
 
@@ -81,8 +71,8 @@ def covariance(serie_x, serie_y):
     average_x = moyenne(serie_x)
     average_y = moyenne(serie_y)
     somme = 0
-    for m, n in serie_x, serie_y:
-        temp = (m - average_x) * (n - average_y)
+    for i in range(len(serie_x)):
+        temp = (serie_x[i] - average_x) * (serie_y[i] - average_y)
         somme = somme + temp
     covariancee = somme / len(serie_x)
     return covariancee
@@ -92,7 +82,7 @@ def correlation(serie_x, serie_y):
     covariance_x_y = covariance(serie_x, serie_y)
     variance_x = variance(serie_x)
     variance_y = variance(serie_y)
-    coefficient = covariance_x_y / (variance_x * variance_y) ^ 0, 5
+    coefficient = covariance_x_y / ((variance_x * variance_y) ** 0.5)
     return coefficient
 
 
@@ -106,18 +96,43 @@ def forteCorrelation(serie_x, serie_y):
 
 def droite_reg(serie_x, serie_y):
     somme = 0
-    sum_m = 0
-    sum_n = 0
-    i = 0
+    sum_x = 0
+    sum_y = 0
+    sum_x2 = 0
     moy_x = moyenne(serie_x)
     moy_y = moyenne(serie_y)
-    for m, n in serie_x, serie_y:
-        temp = m * n
+    for m in range(len(liste_X)):
+        temp = liste_X[m] * liste_Y[m]
         somme = temp + somme
-        sum_m = m + sum_m
-        sum_n = n + sum_n
-        i = i + n ^ 2
-    summ = sum_n * sum_m
-    coef_dir = (len(serie_x) * somme - summ) / (len(serie_x) * i - (sum_m ^ 2))
-    ord_orig = -coef_dir * moy_y + moy_x
+        sum_x = liste_X[m] + sum_x
+        sum_y = liste_Y[m] + sum_y
+        sum_x2 = sum_x2 + liste_X[m] ** 2
+    coef_dir = (len(serie_x) * somme - sum_x * sum_y) / (len(serie_x) * sum_x2 - sum_x ** 2)
+    ord_orig = moy_y - coef_dir * moy_x
     return coef_dir, ord_orig
+
+
+racine = tk.Tk()
+racine.title('graphique')
+cv = tk.Canvas(racine, height=HEIGHT, width=WIDTH)
+butt = tk.Button(racine, text='Tracer la droite', command=lambda: cv.create_line((50, 200), (450, 200), fill='red'))
+butt_2 = tk.Button(racine, text='Autre couleur',
+                   command=lambda: cv.create_line((50, 200), (450, 200), fill=rd.choice(couleur)))
+butt_3 = tk.Button(racine, text='Quitter', command=racine.destroy)
+cv.pack()
+butt.pack()
+butt_2.pack()
+butt_3.pack()
+
+trace_nuage('exemple.txt')
+correlation(liste_X, liste_Y)
+a = forteCorrelation(liste_X, liste_Y)
+b = droite_reg(liste_X, liste_Y)
+print(a)
+print(b)
+if a is True:
+    trace_droite(b[0], b[1])
+else:
+    pass
+
+racine.mainloop()
