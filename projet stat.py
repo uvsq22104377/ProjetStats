@@ -51,7 +51,7 @@ def trace_nuage(nomf):
 
 def trace_droite(a, b):
     cv.create_line((0, b), (500, 500 * a + b), fill='red')
-    # tracage d une droite d'ou a est le coefficient directeur b est l'ordonne a l'origine
+# tracage d une droite d'ou a est le coefficient directeur b est l'ordonne a l'origine
 
 
 # Deuxieme Partie
@@ -129,7 +129,9 @@ def desactiver():
 #  Boucle principale
 racine = tk.Tk()
 racine.title('graphique')
+# creation de canvas
 cv = tk.Canvas(racine, height=HEIGHT, width=WIDTH)
+# definition des buttons
 butt = tk.Button(racine, text='Tracer la droite de regression',
                  command=lambda: trace_droite(droite_reg(list1, list2)[0], droite_reg(list1, list2)[1]))
 butt_2 = tk.Button(racine, text='Autre couleur',
@@ -139,7 +141,7 @@ butt_4 = tk.Button(racine, text='Activer le mode Dessin', command=activer_dessin
 butt_5 = tk.Button(racine, text='Desactiver le mode Dessin', command=desactiver)
 butt_6 = tk.Button(racine, text='Tracer la droite',
                    command=lambda: cv.create_line((50, 200), (350, 200), fill='red'))
-cv.pack()
+cv.pack()   # position des widgets
 butt_6.pack()
 butt_2.pack()
 butt_4.pack()
