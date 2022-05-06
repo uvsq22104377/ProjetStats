@@ -1,10 +1,9 @@
-
 ########################
-#GROUPE 7 MIASHS TD2
-#YANG Xinlei
-#NGOMA Frederique
-#MAUCLAIRE Moana
-#https://github.com/uvsq22106398/ProjetStats
+# GROUPE 7 MIASHS TD2
+# YANG Xinlei
+# NGOMA Frederique
+# MAUCLAIRE Moana
+# https://github.com/uvsq22106398/ProjetStats
 
 
 ###########################
@@ -12,7 +11,6 @@
 import random as rd
 import tkinter as tk
 import pandas as pd
-
 
 # definition des variables
 HEIGHT = 500
@@ -23,7 +21,7 @@ list1, list2 = [], []
 couleur = ['green', 'blue', 'white', 'cyan', 'yellow', 'purple']
 
 
-#Premiere partie
+# Premiere partie
 
 # definition des fonctions
 def cree_fichier_alea(nb, nomfichier):
@@ -32,7 +30,7 @@ def cree_fichier_alea(nb, nomfichier):
     flottants aleatoires entre 0 et 500"""
 
     fichier = open(nomfichier, "w")
-    for i in range(nb):   # debut de la boucle
+    for i in range(nb):  # debut de la boucle
         for j in range(2):
             temp = rd.uniform(0, 500)  # generation des floats aleatoires
             fichier.write(str(temp))  # ecriture du fichier
@@ -46,19 +44,17 @@ def lit_fichier(nomfic):
     passer, le lit et retoune deux listes: listeX qui contient les abcisses pour
     tracer le nuage de point par la suite et listeY qui contient les ordonées """
 
-    global liste_X, liste_Y   # globalisation des variables
+    global liste_X, liste_Y  # globalisation des variables
     fichier = open(nomfic, 'r')
-    liste = []   # generation
-    while True:   # debut de la boucle
+    liste = []  # generation
+    while True:  # debut de la boucle
         texte = fichier.readline()
         liste.append(texte.split())  # il genere une liste entiere d'ou les termes sont les chaines de caracteres
         if texte == '':  # arret de la boucle
             break
-    for i in range(len(liste)-1):   # creation des listes X et Y
-        liste_X.append(liste[i][0])
-        liste_Y.append(liste[i][1])
-        liste_X[i] = float(liste_X[i])   # transformation des chanines de caracteres en float
-        liste_Y[i] = float(liste_Y[i])
+    for i in range(len(liste) - 1):  # creation des listes X et Y
+        liste_X.append(float(liste[i][0]))
+        liste_Y.append(float(liste[i][1]))
 
 
 def trace_nuage(nomf):
@@ -69,7 +65,7 @@ def trace_nuage(nomf):
 
     lit_fichier(nomf)
     for i in range(len(liste_X)):
-        cv.create_line((liste_X[i], liste_Y[i]), (liste_X[i] + 2, liste_Y[i] + 2), width=2)
+        cv.create_line((float(liste_X[i]), float(liste_Y[i])), (float(liste_X[i]) + 2, float(liste_Y[i]) + 2), width=2)
         # simulation des points par des lignes carrees
     return len(liste_X)
 
@@ -78,14 +74,15 @@ def trace_droite(a, b):
     """fonction prenant 2 arguments flottants représentant le coefficient directeur a et
     l'ordonnée à l'origine b d'une droite............................................"""
 
-    cv.create_line((0, b), (500, 500 * a + b), fill='red') # tracage d une droite d'ou a est le coefficient directeur b est l'ordonne a l'origine
+    cv.create_line((0, b), (500, 500 * a + b),
+                   fill='red')  # tracage d une droite d'ou a est le coefficient directeur b est l'ordonne a l'origine
 
 
 # Deuxieme Partie
 
-def moyenne(serie):    
+def moyenne(serie):
     """fonction qui prend sen argument une liste de réels representant une serie statistique
-    et retourne la moyenne de cette serie"""   
+    et retourne la moyenne de cette serie"""
 
     somme = 0
     for i in serie:
@@ -94,7 +91,7 @@ def moyenne(serie):
     return average
 
 
-def variance(serie):   
+def variance(serie):
     """fonction qui prend en argument une liste de réels representant une serie statistique.
     Elle devra appeler la fonction moyenne(serie) puis calculer la variance de cette série """
 
@@ -106,7 +103,7 @@ def variance(serie):
     return variancee
 
 
-def covariance(serie_x, serie_y):  
+def covariance(serie_x, serie_y):
     """fonction qui prend en argument 2 listes represant deux series statistique différentes X
     et Y. Elle appelera la fonction moyenne(serie) et retorunera la covariance entre les 
     variables X et Y"""
@@ -121,7 +118,7 @@ def covariance(serie_x, serie_y):
     return covariancee
 
 
-def correlation(serie_x, serie_y):   
+def correlation(serie_x, serie_y):
     """fontion qui prend en argument 2 listes represant deux series statistique différentes X
     et Y. Elle appelera les fonction moyenne(serie) et variance(serie) et retorunera le
     coefficient de correlation entre les variables X et Y"""
@@ -133,7 +130,7 @@ def correlation(serie_x, serie_y):
     return coefficient
 
 
-def forteCorrelation(serie_x, serie_y):   
+def forteCorrelation(serie_x, serie_y):
     """fonction qui prend en argument 2 listes represant deux series  statistique différentes X
     et Y. Elle appelera la fonction correlation(serieX,serieY) et decidera si les variables X 
     et Y sont fortement liées ou pas. Enfin elle retournera un booleen selon les cas """
@@ -145,7 +142,7 @@ def forteCorrelation(serie_x, serie_y):
         return False
 
 
-def droite_reg(serie_x, serie_y):    
+def droite_reg(serie_x, serie_y):
     """Commentaire à faire """
 
     variance_x = variance(serie_x)
@@ -164,20 +161,20 @@ def dessiner(n):
     global list1, list2
     # tracage des points avec la souris lors du clic gauche
     cv.create_line((float(n.x), float(n.y)), (float(n.x) + 2, float(n.y) + 2), fill='purple')
-    list1.append(n.x)   # creation des listes des coordonnes de la souris
+    list1.append(n.x)  # creation des listes des coordonnes de la souris
     list2.append(n.y)
 
 
 def activer_dessin():
     """fonction qui actionne le mode dessin avec la souris """
 
-    racine.bind('<Button-1>', dessiner)   # association de l'evenement au racine
+    racine.bind('<Button-1>', dessiner)  # association de l'evenement au racine
 
 
 def desactiver():
     """fonction qui annule desactive le mode dessin avec un clic sur la souris"""
 
-    racine.unbind('<Button-1>')    # dissociation de l'evenement au racine
+    racine.unbind('<Button-1>')  # dissociation de l'evenement au racine
 
 
 #  Programme principale
@@ -197,7 +194,7 @@ butt_4 = tk.Button(racine, text='Activer le mode Dessin', command=activer_dessin
 butt_5 = tk.Button(racine, text='Desactiver le mode Dessin', command=desactiver)
 butt_6 = tk.Button(racine, text='Tracer la droite',
                    command=lambda: cv.create_line((50, 200), (350, 200), fill='red'))
-cv.pack()   # position des widgets
+cv.pack()  # position des widgets
 butt_6.pack()
 butt_2.pack()
 butt_4.pack()
@@ -219,7 +216,6 @@ if m is True:
 else:
     pass
 '''
-
 # test du fichier exemple.txt
 '''
 trace_nuage('exemple.txt')
@@ -258,6 +254,5 @@ else:
     pass
 '''
 
-
-#Lancement de la boucle principal
+# Lancement de la boucle principal
 racine.mainloop()
