@@ -55,10 +55,9 @@ def lit_fichier(nomfic):
         if texte == '':  # arret de la boucle
             break
     for i in range(len(liste)-1):   # creation des listes X et Y
-        liste_X.append(liste[i][0])
-        liste_Y.append(liste[i][1])
-        liste_X[i] = float(liste_X[i])   # transformation des chanines de caracteres en float
-        liste_Y[i] = float(liste_Y[i])
+        liste_X.append(float(liste[i][0]))
+        liste_Y.append(float(liste[i][1]))
+    return liste_X , liste_Y
 
 
 def trace_nuage(nomf):
@@ -208,7 +207,7 @@ butt_3.pack()
 # test du fichier aleatoire
 '''
 cree_fichier_alea(10, 'fichier alea')
-lit_fichier('fichier alea')
+print(lit_fichier('fichier alea'))
 trace_nuage('fichier alea')
 m = forteCorrelation(liste_X, liste_Y)
 n = droite_reg(liste_X, liste_Y)
@@ -235,7 +234,7 @@ else:
 
 # test du fichier villes_virgule.csv avec pandas
 # par contre là il faudra vraiment que tu m'explique stp (fred)
-'''
+"""
 info = pd.read_csv("villes_virgule.csv")   # lire le fichier
 villes_2010 = info.loc[info["nb_hab_2010"] <= 500, ['nb_hab_2010']]   # selection des donnees
 villes_2012 = info.loc[info["nb_hab_2012"] <= 500, ['nb_hab_2012']]
@@ -256,7 +255,7 @@ if fort is True:
     trace_droite(droite[0], droite[1])
 else:
     pass
-'''
+"""
 
 
 #Lancement de la boucle principal
