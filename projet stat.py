@@ -43,19 +43,18 @@ def lit_fichier(nomfic):
     """fonction qui prends en argument un fichier enregistré sur le disque dur 
     passer, le lit et retoune deux listes: listeX qui contient les abcisses pour
     tracer le nuage de point par la suite et listeY qui contient les ordonées """
-
     global liste_X, liste_Y  # globalisation des variables
     fichier = open(nomfic, 'r')
     liste = []  # generation
     while True:  # debut de la boucle
         texte = fichier.readline()
         liste.append(texte.split())  # il genere une liste entiere d'ou les termes sont les chaines de caracteres
-        if texte == '':  # arret de la boucle
-
-    for i in range(len(liste) - 1):  # creation des listes X et Y
+        if texte == '':
+            break
+    for i in range(len(liste) - 1):  # creation de listeX et liste Y
         liste_X.append(float(liste[i][0]))
         liste_Y.append(float(liste[i][1]))
-    return liste_X , liste_Y
+    return liste_X, liste_Y
 
 
 def trace_nuage(nomf):
@@ -206,7 +205,7 @@ butt_3.pack()
 # test du fichier aleatoire
 '''
 cree_fichier_alea(10, 'fichier alea')
-print(lit_fichier('fichier alea'))
+lit_fichier('fichier alea')
 trace_nuage('fichier alea')
 m = forteCorrelation(liste_X, liste_Y)
 n = droite_reg(liste_X, liste_Y)
