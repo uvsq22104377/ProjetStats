@@ -203,7 +203,7 @@ butt.pack()
 butt_3.pack()
 
 # test du fichier aleatoire
-'''
+"""
 cree_fichier_alea(10, 'fichier alea')
 lit_fichier('fichier alea')
 trace_nuage('fichier alea')
@@ -215,9 +215,9 @@ if m is True:
     trace_droite(n[0], n[1])
 else:
     pass
-'''
+"""
 # test du fichier exemple.txt
-'''
+"""
 trace_nuage('exemple.txt')
 a = forteCorrelation(liste_X, liste_Y)
 b = droite_reg(liste_X, liste_Y)
@@ -227,7 +227,7 @@ if a is True:
     trace_droite(b[0], b[1])
 else:
     pass
-'''
+"""
 
 # test du fichier villes_virgule.csv avec pandas
 # par contre là il faudra vraiment que tu m'explique stp (fred)
@@ -255,4 +255,5 @@ else:
 """
 
 # Lancement de la boucle principal
+
 racine.mainloop()
