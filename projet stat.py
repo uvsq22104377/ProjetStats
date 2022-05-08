@@ -1,16 +1,16 @@
 ########################
 # GROUPE 7 MIASHS TD2
-# YANG Xinlei
-# NGOMA Frederique
-# MAUCLAIRE Moana
+# YANG Xinlei  (22106398)
+# NGOMA Frederique  (22102710)
+# MAUCLAIRE Moana  
 # https://github.com/uvsq22106398/ProjetStats
 
 
 ###########################
 # import des modules
-import random as rd
-import tkinter as tk
-import pandas as pd
+import random as rd #module permettant de chosir des chiffres aleatoires
+import tkinter as tk #module parmettant de creer un fenetre graphique
+import pandas as pd  # modules permettant d'analyser des données
 
 # definition des variables
 HEIGHT = 500
@@ -50,8 +50,8 @@ def lit_fichier(nomfic):
         texte = fichier.readline()
         liste.append(texte.split())  # il genere une liste entiere d'ou les termes sont les chaines de caracteres
         if texte == '':
-            break
-    for i in range(len(liste) - 1):  # creation de listeX et liste Y
+            break  # arret de la boucle
+    for i in range(len(liste) - 1):  # creation des listes X et Y
         liste_X.append(float(liste[i][0]))
         liste_Y.append(float(liste[i][1]))
     return liste_X, liste_Y
@@ -72,10 +72,10 @@ def trace_nuage(nomf):
 
 def trace_droite(a, b):
     """fonction prenant 2 arguments flottants représentant le coefficient directeur a et
-    l'ordonnée à l'origine b d'une droite............................................"""
+    l'ordonnée à l'origine b d'une droite """
 
     cv.create_line((0, b), (500, 500 * a + b),
-                   fill='red')  # tracage d une droite d'ou a est le coefficient directeur b est l'ordonne a l'origine
+                   fill='red')  
 
 
 # Deuxieme Partie
@@ -114,7 +114,7 @@ def covariance(serie_x, serie_y):
     for i in range(len(serie_x)):
         temp = (serie_x[i] - average_x) * (serie_y[i] - average_y)
         somme = somme + temp
-    covariancee = somme / len(serie_x)
+    covariancee = somme / len(serie_x)    # len(serie_x) represente le nombre d'elements des deux listes qui doivent etre normalement identiques
     return covariancee
 
 
@@ -143,7 +143,7 @@ def forteCorrelation(serie_x, serie_y):
 
 
 def droite_reg(serie_x, serie_y):
-    """Commentaire à faire """
+    """fonction qui permet de tracer la droite de regression de deux series statistiques """
 
     variance_x = variance(serie_x)
     covariance_x_y = covariance(serie_x, serie_y)
@@ -205,7 +205,7 @@ butt_3.pack()
 # test du fichier aleatoire
 '''
 cree_fichier_alea(10, 'fichier alea')
-lit_fichier('fichier alea')
+print(lit_fichier('fichier alea'))
 trace_nuage('fichier alea')
 m = forteCorrelation(liste_X, liste_Y)
 n = droite_reg(liste_X, liste_Y)
@@ -230,7 +230,7 @@ else:
 '''
 
 # test du fichier villes_virgule.csv avec pandas
-# par contre là il faudra vraiment que tu m'explique stp (fred)
+# https://www.isnbreizh.fr/nsi/activity/fichierCSVPython/pythonPandasCSV/index.html (lien utiliser pour comprendre Pandas)
 """
 info = pd.read_csv("villes_virgule.csv")   # lire le fichier
 villes_2010 = info.loc[info["nb_hab_2010"] <= 500, ['nb_hab_2010']]   # selection des donnees

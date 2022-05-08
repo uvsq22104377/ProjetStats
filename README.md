@@ -28,7 +28,7 @@ Fichier = open("nomdevotrefichier", "w"), avec "w" qui signifie write et qui per
 Enfin, elle renverra le nombre de points
 dessinés dans le canvas.
 
-- Et en le dernière fonction de cette partie nommée trace_droite() 
+- Et en la dernière fonction de cette partie nommée trace_droite() qui prends deux flottants, determine deux points de cette droite et trace la ligne reliant ces deux points. 
 
 
 
