@@ -190,6 +190,8 @@ butt = tk.Button(racine, text='Tracer la droite de regression',
 butt_2 = tk.Button(racine, text='Autre couleur',
                    command=lambda: cv.create_line((50, 200), (350, 200), fill=rd.choice(couleur)))
 butt_3 = tk.Button(racine, text='Quitter', command=racine.destroy)
+# https://www.developpez.net/forums/d1844048/autres-langages/python/general-python/tkinter-canvas-destroy/
+# lien utilise pour trouver la commande de fermeture de canvas
 butt_4 = tk.Button(racine, text='Activer le mode Dessin', command=activer_dessin)
 butt_5 = tk.Button(racine, text='Desactiver le mode Dessin', command=desactiver)
 butt_6 = tk.Button(racine, text='Tracer la droite',
@@ -204,7 +206,7 @@ butt_3.pack()
 
 # test du fichier aleatoire
 """
-cree_fichier_alea(10, 'fichier alea')
+cree_fichier_alea(30, 'fichier alea')
 print(lit_fichier('fichier alea'))
 trace_nuage('fichier alea')
 m = forteCorrelation(liste_X, liste_Y)
